@@ -60,6 +60,17 @@ body {
     cursor: pointer;
 }
 
+.boring-button {
+    background-color: #686868;
+    border: none;
+    padding: 10px;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
 .file-editor-grid {
     display: grid;
     grid-template-columns: 0.3fr 0.7fr;

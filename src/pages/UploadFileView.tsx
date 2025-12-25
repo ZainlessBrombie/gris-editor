@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaCloudUploadAlt } from "react-icons/fa";
+import { ContactMe } from "../components/ContactMe.tsx";
 
 export function ExportFileView(props: {
   onFileRead: (name: string, fileContent: Uint8Array) => void;
@@ -57,6 +58,17 @@ export function ExportFileView(props: {
           </i>
         </div>
         <DropzonePart onFileRead={props.onFileRead} />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 10,
+          marginTop: 20,
+        }}
+      >
+        <ContactMe />
       </div>
     </div>
   );

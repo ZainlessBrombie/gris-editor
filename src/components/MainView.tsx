@@ -37,6 +37,6 @@ export function MainView() {
   if (appState === "UPLOAD") {
     return <ExportFileView onFileRead={onFileUpload} />;
   } else if (appState === "EDIT") {
-    return <FileEditorView />;
+    return <FileEditorView onBackToUpload={() => setAppState("UPLOAD")} />;
   }
 }

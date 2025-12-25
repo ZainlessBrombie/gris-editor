@@ -6,10 +6,10 @@ import {
 import { DownloadButton } from "../components/DownloadButton.tsx";
 import { writeGrisSaveFile } from "../utils/GrisFileWriter.ts";
 import { FileDisplay } from "../components/fileDisplay/FileDisplayJSON.tsx";
-import GithubIcon from "../components/GithubIcon.tsx";
-import { DiscordIcon } from "../components/DiscordIcon.tsx";
+import { ContactMe } from "../components/ContactMe.tsx";
+import { ControlButtons } from "../components/ControlButtons.tsx";
 
-export function FileEditorView() {
+export function FileEditorView(props: { onBackToUpload: () => void }) {
   const context = useGrisFileContext();
 
   return (
@@ -24,22 +24,7 @@ export function FileEditorView() {
       >
         <h1 style={{ gridArea: "header" }}>Edit your save file</h1>
         <div style={{ flexGrow: 1 }}></div>
-        <div>Report a bug:</div>
-        <a
-          style={{ height: "fit-content" }}
-          href={"https://github.com/ZainlessBrombie/gris-editor/issues"}
-        >
-          <GithubIcon style={{ height: "2rem", width: "2rem" }} />
-        </a>
-        <div>Contact me on Discord:</div>
-        <DiscordIcon
-          style={{
-            height: "2rem",
-            width: "2rem",
-            cursor: "pointer",
-            display: "block",
-          }}
-        />
+        <ContactMe />
       </div>
       <div
         style={{
@@ -49,6 +34,8 @@ export function FileEditorView() {
           gap: "10px",
         }}
       >
+        <div>Go back or reset:</div>
+        <ControlButtons onResetEditor={props.onBackToUpload} />
         <div>Download the edited file:</div>
         <DownloadButton
           onClick={() => {

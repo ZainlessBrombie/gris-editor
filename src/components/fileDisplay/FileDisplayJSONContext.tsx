@@ -27,6 +27,13 @@ export class GrisFileContextAccessor {
     this.fileName = fileName;
   }
 
+  undoAll() {
+    if (this.uneditedSaveFile) {
+      this.saveFile = cloneGrisFile(this.uneditedSaveFile);
+      this.notifyAll();
+    }
+  }
+
   getSaveFile(): GrisFileEntry | undefined {
     return this.saveFile;
   }
