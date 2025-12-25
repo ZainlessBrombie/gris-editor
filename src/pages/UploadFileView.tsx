@@ -13,7 +13,7 @@ export function ExportFileView(props: {
         Lost your "Cube Friend"? Stuck and can't get out? Something else you
         want to edit?
         <br />
-        Edit your save file here so you don't have to start over.
+        Edit your gris save file here so you don't have to start over.
         <br />
         <br />
         <b>Always make a backup of your save file first!</b>
