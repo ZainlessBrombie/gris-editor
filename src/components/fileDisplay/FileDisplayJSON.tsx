@@ -401,7 +401,7 @@ function DoubleEntry({
 
   function onConfirmValue() {
     setIsEditing(false);
-    const newNumber = Number.parseFloat(contentRef.current!.innerText);
+    const newNumber = Number(contentRef.current!.innerText);
 
     if (Number.isFinite(newNumber)) {
       grisContext.setDoubleValueByPath(path, newNumber);

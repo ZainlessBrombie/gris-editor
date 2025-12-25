@@ -8,6 +8,7 @@ function App() {
   return (
     <GrisFileContext>
       <MainView />
+      <div id={"modalContainer"} />
     </GrisFileContext>
   );
 }

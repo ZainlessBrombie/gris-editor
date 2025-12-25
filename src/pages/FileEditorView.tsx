@@ -8,9 +8,13 @@ import { writeGrisSaveFile } from "../utils/GrisFileWriter.ts";
 import { FileDisplay } from "../components/fileDisplay/FileDisplayJSON.tsx";
 import { ContactMe } from "../components/ContactMe.tsx";
 import { ControlButtons } from "../components/ControlButtons.tsx";
+import { useState } from "react";
+import { EditPlayerCoordinatesModal } from "../components/EditPlayerCoordinatesModal.tsx";
 
 export function FileEditorView(props: { onBackToUpload: () => void }) {
   const context = useGrisFileContext();
+
+  const [teleportPlayerModalOpen, setTeleportPlayerModalOpen] = useState(false);
 
   return (
     <div className={"file-editor-grid"}>
@@ -46,6 +50,17 @@ export function FileEditorView(props: { onBackToUpload: () => void }) {
         {playerPropertiesFound(context) && (
           <QuickFixButton
             onClick={() => {
+              setTeleportPlayerModalOpen(true);
+              return "";
+            }}
+            successMessage={""}
+          >
+            Teleport player
+          </QuickFixButton>
+        )}
+        {playerPropertiesFound(context) && (
+          <QuickFixButton
+            onClick={() => {
               return teleportBlockFriendToPlayer(context);
             }}
             successMessage={
@@ -54,6 +69,11 @@ export function FileEditorView(props: { onBackToUpload: () => void }) {
           >
             Teleport Block Friend to player
           </QuickFixButton>
+        )}
+        {teleportPlayerModalOpen && (
+          <EditPlayerCoordinatesModal
+            onClose={() => setTeleportPlayerModalOpen(false)}
+          />
         )}
       </div>
       <div

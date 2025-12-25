@@ -35,7 +35,8 @@ export function QuickFixButton(
           color: "green",
           fontSize: "0.7rem",
           padding: 5,
-          display: attempted && !errorText ? "unset" : "none",
+          display:
+            props.successMessage && attempted && !errorText ? "unset" : "none",
         }}
       >
         {props.successMessage}

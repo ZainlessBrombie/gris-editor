@@ -71,6 +71,35 @@ body {
     cursor: pointer;
 }
 
+.cancel-button {
+    background-color: #686868;
+    border: none;
+    padding: 10px;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    cursor: pointer;
+    height: 2rem;
+    flex-grow: 1;
+}
+
+.confirm-button {
+    background-color: #00a00a;
+    border: none;
+    padding: 10px;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    cursor: pointer;
+    height: 2rem;
+    flex-grow: 1;
+}
+
+.confirm-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
 .file-editor-grid {
     display: grid;
     grid-template-columns: 0.3fr 0.7fr;

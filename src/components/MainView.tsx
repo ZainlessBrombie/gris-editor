@@ -16,11 +16,16 @@ export function MainView() {
   function onFileUpload(name: string, file: Uint8Array) {
     try {
       const parsedFile = readGrisSaveFile(file);
+
+      fetch("/dummy-log.txt?action=read_file_success").catch(console.error);
+
       context.setSaveFile(parsedFile, name);
       setAppState("EDIT");
 
       rerender();
     } catch (e) {
+      fetch("/dummy-log.txt?action=read_file_failure").catch(console.error);
+
       console.error("Could not read save file", e);
       if (name === "Progress.gs" || name === "Persistent.gs") {
         alert(
