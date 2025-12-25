@@ -8,8 +8,9 @@ import { writeGrisSaveFile } from "../utils/GrisFileWriter.ts";
 import { FileDisplay } from "../components/fileDisplay/FileDisplayJSON.tsx";
 import { ContactMe } from "../components/ContactMe.tsx";
 import { ControlButtons } from "../components/ControlButtons.tsx";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { EditPlayerCoordinatesModal } from "../components/EditPlayerCoordinatesModal.tsx";
+import { NotAssociatedDisclaimer } from "../components/NotAssociatedDisclaimer.tsx";
 
 export function FileEditorView(props: { onBackToUpload: () => void }) {
   const context = useGrisFileContext();
@@ -17,86 +18,89 @@ export function FileEditorView(props: { onBackToUpload: () => void }) {
   const [teleportPlayerModalOpen, setTeleportPlayerModalOpen] = useState(false);
 
   return (
-    <div className={"file-editor-grid"}>
-      <div
-        style={{
-          gridArea: "header",
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <h1 style={{ gridArea: "header" }}>Edit your save file</h1>
-        <div style={{ flexGrow: 1 }}></div>
-        <ContactMe />
-      </div>
-      <div
-        style={{
-          gridArea: "sidebar",
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <div>Go back or reset:</div>
-        <ControlButtons onResetEditor={props.onBackToUpload} />
-        <div>Download the edited file:</div>
-        <DownloadButton
-          onClick={() => {
-            downloadSaveFile(context);
-          }}
-        />
-        <div>Quick fixes:</div>
-        {playerPropertiesFound(context) && (
-          <QuickFixButton
-            onClick={() => {
-              setTeleportPlayerModalOpen(true);
-              return "";
-            }}
-            successMessage={""}
-          >
-            Teleport player
-          </QuickFixButton>
-        )}
-        {playerPropertiesFound(context) && (
-          <QuickFixButton
-            onClick={() => {
-              return teleportBlockFriendToPlayer(context);
-            }}
-            successMessage={
-              "Block Friend teleported. Download and replace save file to continue."
-            }
-          >
-            Teleport Block Friend to player
-          </QuickFixButton>
-        )}
-        {teleportPlayerModalOpen && (
-          <EditPlayerCoordinatesModal
-            onClose={() => setTeleportPlayerModalOpen(false)}
-          />
-        )}
-      </div>
-      <div
-        style={{
-          gridArea: "editor",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <div>File content:</div>
+    <Fragment>
+      <div className={"file-editor-grid"}>
         <div
           style={{
-            border: "2px solid #0003",
-            overflowY: "scroll",
-            marginTop: 7,
-            flexGrow: 1,
-            flexBasis: 0,
+            gridArea: "header",
+            display: "flex",
+            alignItems: "center",
+            gap: 10,
           }}
         >
-          <FileDisplay path={[]} isLast={true} topLevel={true} />
+          <h1 style={{ gridArea: "header" }}>Edit your save file</h1>
+          <div style={{ flexGrow: 1 }}></div>
+          <ContactMe />
+        </div>
+        <div
+          style={{
+            gridArea: "sidebar",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
+        >
+          <div>Go back or reset:</div>
+          <ControlButtons onResetEditor={props.onBackToUpload} />
+          <div>Download the edited file:</div>
+          <DownloadButton
+            onClick={() => {
+              downloadSaveFile(context);
+            }}
+          />
+          <div>Quick fixes:</div>
+          {playerPropertiesFound(context) && (
+            <QuickFixButton
+              onClick={() => {
+                setTeleportPlayerModalOpen(true);
+                return "";
+              }}
+              successMessage={""}
+            >
+              Teleport player
+            </QuickFixButton>
+          )}
+          {playerPropertiesFound(context) && (
+            <QuickFixButton
+              onClick={() => {
+                return teleportBlockFriendToPlayer(context);
+              }}
+              successMessage={
+                "Block Friend teleported. Download and replace save file to continue."
+              }
+            >
+              Teleport Block Friend to player
+            </QuickFixButton>
+          )}
+          {teleportPlayerModalOpen && (
+            <EditPlayerCoordinatesModal
+              onClose={() => setTeleportPlayerModalOpen(false)}
+            />
+          )}
+        </div>
+        <div
+          style={{
+            gridArea: "editor",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <div>File content:</div>
+          <div
+            style={{
+              border: "2px solid #0003",
+              overflowY: "scroll",
+              marginTop: 7,
+              flexGrow: 1,
+              flexBasis: 0,
+            }}
+          >
+            <FileDisplay path={[]} isLast={true} topLevel={true} />
+          </div>
         </div>
       </div>
-    </div>
+      <NotAssociatedDisclaimer />
+    </Fragment>
   );
 }
 

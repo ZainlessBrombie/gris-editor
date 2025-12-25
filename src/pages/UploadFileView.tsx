@@ -2,12 +2,13 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { ContactMe } from "../components/ContactMe.tsx";
+import { NotAssociatedDisclaimer } from "../components/NotAssociatedDisclaimer.tsx";
 
 export function ExportFileView(props: {
   onFileRead: (name: string, fileContent: Uint8Array) => void;
 }) {
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
       <h1>Upload the Gris save file you want to edit</h1>
       <div style={{ marginBottom: 10 }}>
         Lost your "Cube Friend"? Stuck and can't get out? Something else you
@@ -70,6 +71,8 @@ export function ExportFileView(props: {
       >
         <ContactMe />
       </div>
+      <div style={{ flexGrow: 1, height: 0 }}></div>
+      <NotAssociatedDisclaimer />
     </div>
   );
 }
