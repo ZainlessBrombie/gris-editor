@@ -118,7 +118,7 @@ function ObjectEntry({
         {expanded &&
           entries.map(([key], index) => {
             return (
-              <div>
+              <div key={key}>
                 <FileDisplay
                   key={key}
                   path={[...path, key]}
@@ -148,23 +148,40 @@ function ArrayEntry({
   values: GrisFileEntry[];
   path: string[];
 }) {
+  const [expanded, setExpanded] = useState(true);
+
   return (
     <>
       <JsonKeyPrefix jsonKey={jsonKey} />
       <span style={{ fontFamily: "monospace", color: CONTROL_COLOR }}>
         {"["}
       </span>
+      <CollapseExpandButton
+        expanded={expanded}
+        onClick={() => setExpanded(!expanded)}
+      />
       <div style={{ paddingLeft: jsonIndent }}>
-        {values.map((_, index) => {
-          return (
-            <div>
-              <FileDisplay
-                path={[...path, index.toString()]}
-                isLast={index === values.length - 1}
-              />
-            </div>
-          );
-        })}
+        <span
+          style={{
+            color: CONTROL_COLOR,
+            opacity: 0.4,
+            display: expanded ? "none" : undefined,
+            height: "0px",
+          }}
+        >
+          ...
+        </span>
+        {expanded &&
+          values.map((_, index) => {
+            return (
+              <div key={index}>
+                <FileDisplay
+                  path={[...path, index.toString()]}
+                  isLast={index === values.length - 1}
+                />
+              </div>
+            );
+          })}
       </div>
       <div style={{ fontFamily: "monospace", color: CONTROL_COLOR }}>
         {"]"}
@@ -453,7 +470,7 @@ function JsonKeyPrefix(props: { jsonKey?: string }) {
       >
         {JSON.stringify(props.jsonKey)}
       </span>
-      <span style={{ fontFamily: "monospace" }}>: </span>
+      <span style={{ fontFamily: "monospace" }}>:&nbsp;</span>
     </Fragment>
   );
 }

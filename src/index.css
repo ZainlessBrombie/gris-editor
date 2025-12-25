@@ -11,34 +11,66 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+#root {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    min-width: 800px;
+}
+
 body {
     margin: 0;
     display: flex;
+    flex-direction: column;
     place-items: center;
     min-width: 320px;
     min-height: 100vh;
+    max-height: 100vh;
 }
 
-/* TODO */
-button {
+.quick-fix-button {
     border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
+    border: 2px solid #d05400;
     cursor: pointer;
-    transition: border-color 0.25s;
+    background-color: #e97a0d;
+    padding: 10px 10px;
+    font-weight: bold;
+    display: block;
+
+    :hover {
+        outline: none;
+    }
+
+
 }
 
-button:hover {
-    border-color: #646cff;
+.quick-fix-button.error {
+    background-color: #ca1f00;
+    border: 2px solid #ca1f00;
 }
 
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
+.download-button {
+    background-color: #1e8700;
+    border: none;
+    padding: 10px;
+    display: flex;
+    place-items: center;
+    place-content: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.file-editor-grid {
+    display: grid;
+    grid-template-columns: 0.3fr 0.7fr;
+    grid-template-rows: min-content auto;
+    grid-template-areas:
+        "header header"
+        "sidebar editor";
+    flex-grow: 1;
+
+    grid-column-gap: 15px;
+    padding-bottom: 50px;
 }
 
 

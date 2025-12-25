@@ -4,37 +4,35 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useReducer,
   useState,
 } from "react";
 import type { GrisFileEntry } from "../../utils/GrisFile.types.ts";
-import {
-  parsedPersistentFile,
-  parsedProgressFile,
-} from "../../utils/TempStaticGrisFile.ts";
+import { useRerender } from "../../utils/useRerender.ts";
 
 const ReactGrisFileContext = createContext<GrisFileContextAccessor | null>(
   null,
 );
 
-class GrisFileContextAccessor {
+export class GrisFileContextAccessor {
   private saveFile?: GrisFileEntry;
   private uneditedSaveFile?: GrisFileEntry;
+  private fileName: string = "Progress.gs";
   private listeners: Set<() => void> = new Set<() => void>();
 
-  constructor() {
-    // TODO TEMP
-    this.saveFile = parsedProgressFile;
-    this.uneditedSaveFile = cloneGrisFile(this.saveFile);
-  }
+  constructor() {}
 
-  setSaveFile(saveFile: GrisFileEntry) {
+  setSaveFile(saveFile: GrisFileEntry, fileName: string) {
     this.saveFile = saveFile;
     this.uneditedSaveFile = cloneGrisFile(this.saveFile);
+    this.fileName = fileName;
   }
 
   getSaveFile(): GrisFileEntry | undefined {
     return this.saveFile;
+  }
+
+  getFileName(): string {
+    return this.fileName;
   }
 
   getUneditedSaveFile(): GrisFileEntry | undefined {
@@ -141,10 +139,6 @@ export function useGrisFileContext(): GrisFileContextAccessor {
   }
 
   return contextValue;
-}
-
-function useRerender(): () => void {
-  return useReducer((prev) => prev + 1, 0)[1];
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
